@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Q03ZW Device Communication Protocol EN</title><style>
+:root{color-scheme:light;--ink:#172434;--muted:#58687a;--blue:#164a78;--line:#dce3ea;--paper:#fff;--bg:#f4f6f9}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:28px}body{margin:0;color:var(--ink);background:var(--bg);font:15px/1.8 "Segoe UI","Microsoft YaHei",Arial,sans-serif}
+a{color:var(--blue);text-underline-offset:3px}button,input{font:inherit}aside{position:fixed;inset:0 auto 0 0;width:280px;padding:26px 22px;background:#fff;border-right:1px solid var(--line);display:flex;flex-direction:column;z-index:2}
+.brand{font-size:21px;font-weight:750;letter-spacing:.03em}.edition{font-size:12px;color:var(--muted);margin:3px 0 18px}#toc-filter{width:100%;padding:9px 11px;border:1px solid #bdc9d5;border-radius:6px;margin-bottom:16px;background:#fff;color:var(--ink)}
+nav{overflow:auto;overscroll-behavior:contain;padding-right:4px}nav a{display:block;font-size:13px;line-height:1.5;padding:6px 0;text-decoration:none}nav a:hover{text-decoration:underline}nav .major{font-weight:700;margin-top:12px;color:#172434}nav .minor{padding-left:10px;border-left:1px solid var(--line)}nav a[hidden]{display:none}.review-link{margin:0 0 14px;font-weight:650}
+.layout{margin-left:280px;padding:38px 42px 64px}main{max-width:1160px;margin:auto;background:#fff;padding:44px 52px;box-shadow:0 2px 14px #24354c08}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:28px;font-size:13px;color:var(--muted)}.actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap}button{background:#fff;border:1px solid #c5d0da;border-radius:5px;padding:4px 12px;color:var(--ink);cursor:pointer}
+h1,h2,h3,h4{color:#000;line-height:1.4;overflow-wrap:anywhere}h1{font-size:34px;margin:0 0 12px;letter-spacing:-.02em}h2{font-size:25px;margin:50px 0 18px}h3{font-size:19px;margin:34px 0 12px}h4{font-size:16px;margin:23px 0 10px}.lede{font-size:16px;color:#425368;max-width:880px;margin:16px 0 26px}.meta{font-size:13px;color:var(--muted)}p{margin:10px 0;overflow-wrap:anywhere}.intro{margin-bottom:36px}.table-wrap{overflow:auto;margin:16px 0 22px;border:1px solid #cfd8e2;border-radius:3px}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.65}th,td{padding:12px 14px;border-right:1px solid #d7e0e8;border-bottom:1px solid #d7e0e8;text-align:left;vertical-align:middle}th{background:#204e75;color:#fff;font-weight:650}tr:nth-child(even) td{background:#f7f9fc}tr:last-child td{border-bottom:0}th:last-child,td:last-child{border-right:0}.frame table{min-width:780px}.extended table{min-width:940px}.mono{font-family:Consolas,"Cascadia Mono",monospace}.frame td:not(:nth-last-child(2)){white-space:nowrap}
+pre{background:#f5f7fa;border:1px solid #e0e6ed;border-radius:5px;padding:20px 22px;line-height:1.65;font-size:13px;tab-size:4;margin:16px 0 23px;white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal}code{font-family:Consolas,"Cascadia Mono","Microsoft YaHei",monospace}.comment{color:#44654b}.type{color:#684886}.review-hint{font-size:13px;margin:2px 0 12px;color:#77542c}.review-hint a{color:#77542c}.issue{padding-top:8px;margin-bottom:28px}.issue h3{margin-top:22px}.status{font-size:12px;color:#77542c}.locations{font-size:13px;color:var(--muted)}.footnote{font-size:12px;color:var(--muted);margin-top:45px;padding-top:20px;border-top:1px solid var(--line)}[id]{scroll-margin-top:30px}.top-link{display:inline-block;margin-top:24px;font-size:13px}
+@media(min-width:1700px){.layout{padding-right:70px;padding-left:70px}}@media(max-width:1100px){aside{width:230px;padding:22px 16px}.layout{margin-left:230px;padding:24px 22px}main{padding:32px 30px}h1{font-size:30px}}
+@media(max-width:760px){aside{position:relative;width:auto;max-height:360px;padding:20px;border-right:0;border-bottom:1px solid var(--line)}nav{max-height:190px}.edition{margin-bottom:10px}#toc-filter{margin-bottom:8px}.review-link{margin-bottom:8px}.layout{margin-left:0;padding:14px 10px}main{padding:25px 19px}h1{font-size:27px}h2{font-size:23px}h3{font-size:18px}.toolbar{align-items:flex-start;flex-wrap:wrap}.actions{gap:12px}pre{padding:15px 13px;font-size:12px}th,td{padding:10px 12px}}
+@media print{body{background:#fff;font-size:10pt}aside,.toolbar,.top-link{display:none}.layout{margin:0;padding:0}main{max-width:none;box-shadow:none;padding:0}h1{font-size:23pt}h2{font-size:17pt;margin-top:25pt}h3{font-size:13pt;break-after:avoid}h4{break-after:avoid}pre{font-size:8pt;white-space:pre-wrap;overflow-wrap:anywhere}a{color:inherit;text-decoration:none}.table-wrap{overflow:visible}.frame table,.extended table{min-width:0;font-size:8pt}.frame td{white-space:normal!important}th,td{padding:6pt}thead{display:table-header-group}tr{break-inside:avoid}.issue{break-inside:avoid}@page{size:A4;margin:15mm}}
+
+.footnote{overflow-wrap:anywhere}.audit-lengths table{min-width:640px}
+
+nav .toc-group{margin:8px 0;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+nav .toc-group summary{display:flex;align-items:flex-start;gap:8px;padding:10px 9px;cursor:pointer;list-style:none;font-size:13px;font-weight:700;line-height:1.5;color:var(--ink);background:#f7f9fc}
+nav .toc-group summary::-webkit-details-marker{display:none}
+nav .toc-group summary::before{content:"›";display:inline-block;flex:none;width:10px;line-height:1.5;transform-origin:center;transition:transform .15s}
+nav .toc-group[open] summary::before{transform:rotate(90deg)}
+nav .toc-group summary:hover{background:#edf2f7}
+nav .toc-group summary:focus-visible{outline:2px solid var(--blue);outline-offset:-3px}
+nav .toc-children{padding:4px 8px 8px 12px}
+nav .toc-children .major{margin-top:0;font-weight:400;color:var(--blue);font-size:12px}
+nav .toc-children .minor{padding:6px 0 6px 9px}
+nav .toc-group[hidden]{display:none}
+</style></head><body id="top"><aside><div class="brand">Q03ZW</div><div class="edition">Device communication protocol · EN</div><input id="toc-filter" type="search" aria-label="Filter contents" placeholder="Filter contents or TAG…"><nav aria-label="Table of contents"><a href="#overview">Protocol overview</a><a href="#frames">Frame formats</a><details class="toc-group"><summary>1 Protocol description</summary><div class="toc-children"><a class="major" href="#section-000">Chapter overview</a></div></details><details class="toc-group"><summary>2 Bluetooth control and status commands (BLE)</summary><div class="toc-children"><a class="major" href="#section-008">Chapter overview</a><a class="minor" href="#section-015">2.1 App command to configure AP mode (TAG 0x01)</a><a class="minor" href="#section-025">2.3 App command to configure STA mode (TAG 0x06)</a><a class="minor" href="#section-030">2.4 Device response to AP configuration (TAG 0x03)</a><a class="minor" href="#section-033">2.5 Device response to STA configuration (TAG 0x04)</a><a class="minor" href="#section-036">2.6 IP address returned by the device (TAG 0x07)</a></div></details><details class="toc-group"><summary>3 TCP control protocol</summary><div class="toc-children"><a class="major" href="#section-045">Chapter overview</a><a class="minor" href="#section-050">3.1 App lens control command (TAG 0x10)</a><a class="minor" href="#section-053">3.2 App image control command (TAG 0x11)</a><a class="minor" href="#section-058">3.3 App device status control command (TAG 0x12)</a><a class="minor" href="#section-060">3.4 App audio and video control command (TAG 0x13)</a><a class="minor" href="#section-062">3.5 App heartbeat response command (TAG 0x14)</a><a class="minor" href="#section-064">3.6 Device heartbeat command (TAG 0x16)</a><a class="minor" href="#section-089">3.7 App firmware upgrade command (TAG 0x17)</a><a class="minor" href="#section-093">3.8 App factory reset command (TAG 0x18)</a><a class="minor" href="#section-095">3.9 App recording control command (TAG 0x19)</a><a class="minor" href="#section-098">3.10 App time synchronization command (TAG 0x1a)</a><a class="minor" href="#section-105">3.11 App command to set HDMI output resolution (TAG 0x21)</a><a class="minor" href="#section-108">3.12 App command to read HDMI output resolution (TAG 0x22)</a><a class="minor" href="#section-110">3.13 App command to set anti-flicker parameters (TAG 0x23)</a><a class="minor" href="#section-113">3.14 App command to get anti-flicker parameters (TAG 0x24)</a><a class="minor" href="#section-115">3.15 App command to set the device name (TAG 0x25)</a><a class="minor" href="#section-119">3.16 App command to configure the NDI license (TAG 0x26)</a><a class="minor" href="#section-123">3.17 App command to get the NDI license (TAG 0x27)</a><a class="minor" href="#section-125">3.18 App command to set TOF status (TAG 0x28)</a><a class="minor" href="#section-127">3.19 App command to get TOF status (TAG 0x29)</a><a class="minor" href="#section-129">3.20 App command to set WDR (TAG 0x2a)</a><a class="minor" href="#section-131">3.21 App command to set BLC (TAG 0x2b)</a><a class="minor" href="#section-133">3.22 App command to switch image style (TAG 0x2c)</a><a class="minor" href="#section-138">3.23 App command to switch exposure mode (TAG 0x2d)</a><a class="minor" href="#section-145">3.24 App command to set USB operating mode (TAG 0x2f)</a><a class="minor" href="#section-147">3.25 App command to set white balance (TAG 0x30)</a><a class="minor" href="#section-151">3.26 App command to get white balance (TAG 0x31)</a><a class="minor" href="#section-153">3.27 App command to set recording bitrate (TAG 0x32)</a><a class="minor" href="#section-155">3.28 App command to get recording bitrate (TAG 0x33)</a><a class="minor" href="#section-157">3.29 App command to flip the image (TAG 0x34)</a><a class="minor" href="#section-159">3.30 App command to get image mounting orientation (TAG 0x35)</a><a class="minor" href="#section-161">3.31 App command to configure RTMP streaming (TAG 0x36)</a><a class="minor" href="#section-167">3.32 App command to get RTMP streaming information (TAG 0x37)</a><a class="minor" href="#section-169">3.33 App command to set the tally light (TAG 0x38)</a><a class="minor" href="#section-171">3.34 App command to get tally light status (TAG 0x39)</a><a class="minor" href="#section-173">3.35 App command to set point focus parameters (TAG 0x3a)</a><a class="minor" href="#section-175">3.36 App command to force a factory reset (TAG 0x3b)</a><a class="minor" href="#section-177">3.37 App command to get basic NDI information (TAG 0x50)</a><a class="minor" href="#section-179">3.38 App command to get advanced NDI information (TAG 0x52)</a><a class="minor" href="#section-181">3.39 App command to set basic NDI information (TAG 0x51)</a><a class="minor" href="#section-184">3.40 App command to set advanced NDI information (TAG 0x53)</a><a class="minor" href="#section-187">3.41 App command to get network interface information (TAG 0x56)</a><a class="minor" href="#section-189">3.42 App command to get lens information (TAG 0x57)</a><a class="minor" href="#section-191">3.43 RTMP connection status query (Q03ZW NEW), set: TAG 0x5c, get: TAG 0x5c</a><a class="minor" href="#section-194">3.44 Region focus (Q03ZW New), set: TAG 0x5f</a><a class="minor" href="#section-197">3.45 Region exposure compensation (Q03ZW New), set: TAG 0x60</a><a class="minor" href="#section-200">3.46 OSD text prompt overlay (Q03ZW New), TAG 0x61</a><a class="minor" href="#section-203">3.47 Absolute zoom and focus position control (Q03ZW New), TAG 0x62</a><a class="minor" href="#section-209">3.48 Extended SD card command (Q03ZW New), TAG 0x63</a><a class="minor" href="#section-212">3.49 App command to get exposure mode (Q03ZW New), TAG 0x64</a><a class="minor" href="#section-216">3.50 App camera preset control (Q03ZW New), TAG 0x65</a><a class="minor" href="#section-221">3.51 App network configuration (Q03ZW New), TAG 0x66</a><a class="minor" href="#section-224">3.52 Forced SD card formatting (Q03ZW New), TAG 0x67</a><a class="minor" href="#section-228">3.53 Extended protocol header, TAG 0x69</a><a class="minor" href="#section-238">3.54 Network stream encoding parameters (Q03ZW New), TAG 0x6a</a><a class="minor" href="#section-245">3.55 Image mirror and flip (Q03ZW New), TAG 0x6c</a><a class="minor" href="#section-260">3.56 Automatic device reboot notification (Q03ZW New), TAG 0x6d</a><a class="minor" href="#section-265">3.57 Lens self-check (Q03ZW New), TAG 0x6e</a></div></details><details class="toc-group"><summary>4 TCP video and audio stream transport</summary><div class="toc-children"><a class="major" href="#section-272">Chapter overview</a></div></details><details class="toc-group"><summary>5 Camera Discovery and Connection</summary><div class="toc-children"><a class="major" href="#camera-connection">Chapter overview</a><a class="minor" href="#camera-discovery">5.1 Bluetooth Discovery and Device Identification</a><a class="minor" href="#camera-network">5.2 Reading the IP Address and Bluetooth Network Setup</a><a class="minor" href="#camera-tcp">5.3 Establishing TCP Control and Heartbeat Connections</a><a class="minor" href="#camera-encoding">5.4 Setting Encoding Parameters and Starting Encoding</a><a class="minor" href="#camera-rtsp">5.5 RTSP Live Preview</a></div></details><details class="toc-group"><summary>6 SRT and RTMP Network Transmission</summary><div class="toc-children"><a class="major" href="#network-transmission">Chapter overview</a><a class="minor" href="#network-command-index">6.1 Command Quick Reference</a><a class="minor" href="#srt-network-transmission">6.2 SRT Configuration and Readback</a><a class="minor" href="#rtmp-network-transmission">6.3 RTMP Streaming and Connection Status</a></div></details></nav></aside><div class="layout"><main><div class="toolbar"><span>Developer interface reference</span><div class="actions"><a href="Q03ZW%20%E8%AE%BE%E5%A4%87%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE_CN.html">CN</a><button type="button" onclick="window.print()">Print</button></div></div><div class="intro"><p class="meta">V1.0 · 2026.11.24 · English edition</p><h1>Q03ZW Device Communication Protocol</h1><p class="lede">For device app integration, covering common frame formats, Bluetooth network setup, TCP control, and RTSP live preview.</p></div><h2 id="overview">Protocol overview</h2><div class="table-wrap "><table><thead><tr><th scope="col">Section</th><th scope="col">Content</th><th scope="col">Use case</th></tr></thead><tbody><tr><td>1</td><td>Common and extended frame formats</td><td>Understand command framing and checksums</td></tr><tr><td>2</td><td>Bluetooth control and status commands</td><td>Discover nearby devices, configure networking, and read network status</td></tr><tr><td>3</td><td>TCP control protocol</td><td>Device control, heartbeats, image and audio parameters</td></tr><tr><td>4</td><td>TCP video and audio transport</td><td>LAN video and audio frame transport</td></tr><tr><td>5</td><td>Camera discovery and connection</td><td>Bluetooth discovery, IP readback, network setup, TCP connections, and RTSP preview</td></tr><tr><td>6</td><td>SRT and RTMP network transmission</td><td>Quick access to SRT and RTMP configuration, readback, and connection status commands</td></tr></tbody></table></div><h2 id="version">Protocol version</h2><div class="table-wrap "><table><thead><tr><th scope="col">No.</th><th scope="col">Version</th><th scope="col">Notes</th></tr></thead><tbody><tr><td>1</td><td>V1.0 (2026.11.24)</td><td>Initial version</td></tr></tbody></table></div><h2 id="frames">Common Protocol Frame Formats</h2><p>The following two tables describe the protocol frame formats. Fields are listed in transmission order to support byte-by-byte packet construction and checksum calculation.</p><h3>Standard frame</h3><div class="table-wrap frame"><table><thead><tr><th scope="col">Header</th><th scope="col">TAG</th><th scope="col">LENGTH</th><th scope="col">VALUE</th><th scope="col">Checksum</th><th scope="col">Trailer</th></tr></thead><tbody><tr><td>0x55AA</td><td>uint8_t</td><td>uint8_t</td><td>uint8_t *</td><td>XOR of TAG, LENGTH, and VALUE; excludes the header and trailer</td><td>0xF0</td></tr></tbody></table></div><h3>Extended frame</h3><div class="table-wrap frame extended"><table><thead><tr><th scope="col">Header</th><th scope="col">TAG</th><th scope="col">EXT_LENGTH</th><th scope="col">EXT_TAG</th><th scope="col">HEAD CRC</th><th scope="col">VALUE</th><th scope="col">Checksum</th><th scope="col">Trailer</th></tr></thead><tbody><tr><td>0x55AA</td><td>0x69</td><td>uint16_t, high byte first</td><td>uint16_t, high byte first</td><td>XOR from TAG through EXT_TAG</td><td>uint8_t *</td><td>XOR of all data except the header, trailer, and the checksum field itself</td><td>0xF0</td></tr></tbody></table></div><p>EXT_LENGTH is the combined length of EXT_TAG, HEAD CRC, and VALUE. The extended protocol supports VALUE payloads longer than 255 bytes.</p><p><strong>Note: all payload data in VALUE is transmitted in little-endian byte order.</strong></p><p id="payload-lengths">Key Payload Lengths</p><p>Standard frame size = VALUE + 6; extended frame size = VALUE + 10; EXT_LENGTH = VALUE + 3. The extended header length and TAG are transmitted high byte first; multibyte integers within VALUE are little-endian.</p><div class="table-wrap audit-lengths"><table><thead><tr><th scope="col">Interface</th><th scope="col">Structure or payload</th><th scope="col">VALUE bytes</th></tr></thead><tbody><tr><td>0x10</td><td>app_control_lens_t</td><td>30</td></tr><tr><td>0x11</td><td>app_control_image_t</td><td>29</td></tr><tr><td>0x12</td><td>app_control_state_t</td><td>30</td></tr><tr><td>0x1a</td><td>app_set_time_t</td><td>39</td></tr><tr><td>0x21 / 0x22</td><td>app_set_hdmi_t</td><td>26</td></tr><tr><td>0x30 / 0x31</td><td>app_set_wb_t</td><td>34</td></tr><tr><td>0x36 / 0x37 legacy format</td><td>app_set_rtmp_t</td><td>234</td></tr><tr><td>0x36 / 0x37 extended format</td><td>app_set_rtmp_ext_t</td><td>246</td></tr><tr><td>0x65 request</td><td>app_set_Pre_t</td><td>26</td></tr><tr><td>0x65 response</td><td>app_get_pre_t</td><td>30</td></tr><tr><td>0x66</td><td>app_set_networke_t</td><td>75</td></tr><tr><td>0x6a</td><td>app_NetCodingParam_t</td><td>38</td></tr><tr><td>0x6c</td><td>app_ImageRotateConf_t</td><td>26</td></tr><tr><td>EXT 0x01 / 0x02 response</td><td>app_srt_t</td><td>430</td></tr><tr><td>0x16 fields defined in this document</td><td>dev_send_heartbeat_t</td><td>150</td></tr><tr><td>EXT 0x02 request</td><td>product_sn[24]</td><td>24</td></tr><tr><td>BLE 0x01</td><td>app_set_dev_wifi_apmode_t</td><td>34</td></tr><tr><td>BLE 0x06</td><td>app_set_dev_wifi_stamodeV2_t</td><td>246</td></tr><tr><td>BLE 0x03</td><td>dev_apmode_ok_t</td><td>76</td></tr><tr><td>BLE 0x04</td><td>dev_stamode_ok_t</td><td>26</td></tr><tr><td>BLE 0x07</td><td>dev_ipV2_t</td><td>246</td></tr></tbody></table></div><h2 id="section-000">1 Protocol description</h2><p>A command frame consists of the following parts.</p><p>Command identifier (TAG).</p><p>LENGTH: the length of VALUE in bytes. This is an 8-bit field with a maximum value of 255.</p><p>DATA: see the definitions below.</p><p>The extended protocol primarily supports payloads longer than 255 bytes.</p><p>EXT_LENGTH: the combined length of EXT_TAG, HEAD CRC, and VALUE.</p><p>VALUE: the command-specific payload, identified by EXT_TAG.</p><h2 id="section-008">2 Bluetooth control and status commands (BLE)</h2><p>The app uses this Bluetooth protocol to discover nearby devices and control nearby CPS devices. The payload generally begins with the device serial number.</p><pre><code>#define AP_STA_UUID "ACA0EF7C-EEAA-48AD-9508-19A6CEF6B356"
+#define DEV_IP_V2_UUID "90753043-6E40-4590-AFF6-5B48F6412E2F"</code></pre><p>The following two main Bluetooth characteristics are used:</p><p>1) AP_STA_UUID: write TAG=0x01 or TAG=0x06 to configure AP or STA mode. For read operations, the device returns TAG=0x03 or TAG=0x04.</p><p>2) DEV_IP_V2_UUID: read operation; the device returns TAG=0x07.</p><h3 id="section-015">2.1 App command to configure AP mode (TAG 0x01)</h3><h4 id="section-016">2.1.1 Payload description</h4><p>TAG 0x01 configures a connected device to use AP mode. The payload structure is app_set_dev_wifi_apmode_t.</p><h4 id="section-018">2.1.2 VALUE structure definition</h4><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> workstatus; <span class="comment">// 0x02: AP mode; other values currently have no defined meaning</span>
+    <span class="type">uint8_t</span> frequency_mode; <span class="comment">// 0x0: 2.4 GHz band; 0x1: 5 GHz band</span>
+    <span class="type">uint8_t</span> set_unit_type; <span class="comment">//0 default</span>
+    <span class="type">uint16_t</span> devVideoHeight; <span class="comment">// Set resolution to 1080</span>
+    <span class="type">uint8_t</span> devVideoBitrate; <span class="comment">// Set bitrate to 4 (unit: Mbs, as written in the source)</span>
+    <span class="type">uint8_t</span> videofps; <span class="comment">// Actual frame rate; the current Q03ZW configuration uses 25 or 30, not a 0/1/2 enumeration</span>
+    <span class="type">uint8_t</span> CountryCode[3]; <span class="comment">//(alpha-2 country codes defined by ISO 3166-1)</span>
+} app_set_dev_wifi_apmode_t;</code></pre><p>product_sn is provided in Device Name in the Bluetooth scan response and is also included in the advertising packet.</p><p>Ensure product_sn and workstatus are correct. If either is incorrect, the device returns immediately without any notification; this must be detected during integration testing.</p><p>1) While switching modes, the device ignores incoming commands without any notification.</p><p>2) If the requested mode matches the current network mode, the status returned by TAG 0x07 does not change. The device performs no operation and returns immediately.</p><p>3) If the requested mode differs from the current mode, wlan_state in TAG 0x07 first changes to 0x03. On successful switching it changes to 0x02; on failure it changes to 0. The device saves the last requested mode and uses it to configure the network after the next reboot.</p><h3 id="section-025">2.3 App command to configure STA mode (TAG 0x06)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">char</span> wifi_ssid[33];
+    <span class="type">char</span> wifi_password[64];
+    <span class="type">char</span> wifi_bssid[18]; <span class="comment">// BSSID, for example: c2:9f:49:4e:f5:6a</span>
+    <span class="type">uint8_t</span> workstatus; <span class="comment">// 0x01: station mode; other values currently have no defined meaning</span>
+    <span class="type">uint8_t</span> ip_state; <span class="comment">// 0x0 dhcp</span>
+    <span class="type">char</span> wlan_ip[32];
+    <span class="type">char</span> subnetmask[32];
+    <span class="type">char</span> gateway[32];
+    <span class="type">uint8_t</span> set_unit_type; <span class="comment">//0 default</span>
+    <span class="type">uint16_t</span> devVideoHeight; <span class="comment">// Set resolution to 1080</span>
+    <span class="type">uint8_t</span> devVideoBitrate; <span class="comment">// Set bitrate to 4</span>
+    <span class="type">uint8_t</span> videofps; <span class="comment">// Actual frame rate; the current Q03ZW configuration uses 25 or 30, not a 0/1/2 enumeration</span>
+    <span class="type">uint8_t</span> distribution_network_sign; <span class="comment">// 0: configure the network and resolution; 1: read resolution settings only, without configuring the network</span>
+    <span class="type">uint8_t</span> CountryCode[3]; <span class="comment">//(alpha-2 country codes defined by ISO 3166-1)</span>
+} app_set_dev_wifi_stamodeV2_t;</code></pre><p>Notes:</p><p>1) The original STA configuration command uses TAG=0x02. Its SSID and password lengths do not meet general Wi-Fi requirements. TAG=0x06 was added to configure STA mode with longer SSID and password fields.</p><p>2) TAG=0x06 must be used with the new BLE characteristic 90753043-6E40-4590-AFF6-5B48F6412E2F. Support for this characteristic indicates support for the extended SSID and password lengths. (20260626)</p><h3 id="section-030">2.4 Device response to AP configuration (TAG 0x03)</h3><p>TAG is 0x03. Length can be obtained directly using sizeof on the following payload structure.</p><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">char</span> wifi_ssid[30];
+    <span class="type">char</span> wifi_password[20];
+    <span class="type">uint8_t</span> workstatus; <span class="comment">// 0x01: station mode; 0x02: AP mode; other values currently have no defined meaning</span>
+    <span class="type">uint8_t</span> reserved; <span class="comment">// Reserved field</span>
+} dev_apmode_ok_t;</code></pre><h3 id="section-033">2.5 Device response to STA configuration (TAG 0x04)</h3><p>TAG is 0x04. Length can be obtained directly using sizeof on the following payload structure.</p><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> workstatus; <span class="comment">// 0x01: station mode; 0x02: AP mode; other values currently have no defined meaning</span>
+    <span class="type">uint8_t</span> reserved; <span class="comment">// Reserved field</span>
+} dev_stamode_ok_t;</code></pre><h3 id="section-036">2.6 IP address returned by the device (TAG 0x07)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">char</span> wlan_ip[32]; <span class="comment">// Wireless IP address</span>
+    <span class="type">uint8_t</span> wlan_state; <span class="comment">// Wireless interface mode: 0x0: Wi-Fi error; 0x01: station mode; 0x02: AP mode; 0x03: switching modes</span>
+    <span class="type">char</span> wifi_ssid[33];
+    <span class="type">char</span> wifi_password[64];
+    <span class="type">char</span> wifi_bssid[18]; <span class="comment">// BSSID, for example: c2:9f:49:4e:f5:6a</span>
+    <span class="type">uint8_t</span> ip_state; <span class="comment">// 0x0 dhcp 0x1 static ip</span>
+    <span class="type">char</span> subnetmask[32];
+    <span class="type">char</span> gateway[32];
+    <span class="type">uint8_t</span> BitMaskByte; <span class="comment">// bit1: RTSP authentication supported</span>
+    <span class="type">char</span> DevVersion[8]; <span class="comment">// Device firmware version</span>
+} dev_ipV2_t;</code></pre><p>Notes:</p><p>1) The original IP query command uses TAG=0x05. Its SSID and password lengths do not meet general Wi-Fi requirements. TAG=0x07 was added for IP queries with extended SSID and password lengths.</p><p>2) TAG=0x07 must be used with the new BLE characteristic 90753043-6E40-4590-AFF6-5B48F6412E2F. Support for this characteristic indicates support for the extended SSID and password lengths. (20260626)</p><p>3) BitMaskByte definitions:</p><p>bit4: extended network encoding parameters supported, TAG=0x6a</p><p>bit5: RTMP H.265 supported</p><h2 id="section-045">3 TCP control protocol</h2><p>Protocol structures use 1-byte packing (#pragma pack(1)); do not transmit structures using the compiler's default alignment. See the <a href="#payload-lengths">payload length table</a>; skip heartbeat bytes beyond the fields defined here according to LENGTH.</p><pre><code><span class="type">typedef</span> <span class="type">signed</span> <span class="type">char</span> <span class="type">sint8_t</span>;
+<span class="type">typedef</span> <span class="type">unsigned</span> <span class="type">char</span> <span class="type">uint8_t</span>;
+<span class="type">typedef</span> <span class="type">unsigned</span> <span class="type">short</span> <span class="type">uint16_t</span>;
+<span class="type">typedef</span> <span class="type">unsigned</span> int <span class="type">uint32_t</span>;
+#pragma pack(1)</code></pre><p>After discovering the device over Bluetooth and configuring and connecting to Wi-Fi, the app establishes a socket connection and sends control commands over TCP. These commands control image parameters, operating modes, focus, zoom, and other functions. The frame header, trailer, and checksum follow Section 1. The following sections define TAG and VALUE.</p><p>1) The app sends control commands and firmware package data to device port 19017. The device returns reception status for certain control commands and firmware transfers on port 19017. The app also reports streaming status on port 19017 when connecting and whenever the status changes. The app must send a keepalive heartbeat to port 19017 once per second. If the device receives no heartbeat for more than 10 seconds, it disconnects and resumes listening.</p><p>2) The device sends heartbeat data to the app through port 19015 once per second.</p><p>3) App control commands, device status responses, and device heartbeats must all carry the SN. When establishing a connection, send TAG 0x6a and TAG 0x14 to start device encoding.</p><h3 id="section-050">3.1 App lens control command (TAG 0x10)</h3><p>The current CA handles ctrlnum values 0x1 through 0x4 only. Focus mode afmode=2 selects area focus; the original Rack description has been corrected to match the implementation. The previous Tof description for afmode=3 has no corresponding handler in the reviewed CA code.</p><p>TAG is 0x10. Length can be obtained directly using sizeof on the following payload structure.</p><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> afmode; <span class="comment">// Current CA handling: 0: auto; 1: manual; 2: area focus; 3 has no handler</span>
+    <span class="type">uint8_t</span> focusctrl; <span class="comment">// Focus control: 0: stop; 0x21~0x27: far; 0x31~0x37: near</span>
+    <span class="type">uint8_t</span> zoomctrl; <span class="comment">// Zoom control: 0: stop; 0x21~0x27: tele; 0x31~0x37: wide</span>
+    <span class="type">uint8_t</span> presetact; <span class="comment">// Preset action: 1: set; 2: clear; 3: call</span>
+    <span class="type">uint8_t</span> presetnum; <span class="comment">// Preset number; currently supports 1~3</span>
+    <span class="type">uint8_t</span> ctrlnum; <span class="comment">// 0x1: focus mode; 0x2: focus action; 0x3: zoom; 0x4: preset; current CA has no 0x5 PT handler</span>
+} app_control_lens_t;</code></pre><h3 id="section-053">3.2 App image control command (TAG 0x11)</h3><p>This document uses the confirmed external field name Hue. The CA member remains wbscene, but its read and write paths use CFG_PARAM_E_HUE and BSP_SetHue respectively. The field's packet position, type, and length are unchanged.</p><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> brightness; <span class="comment">// Brightness: 0~14</span>
+    <span class="type">uint8_t</span> contrast; <span class="comment">// Contrast: 0~14</span>
+    <span class="type">uint8_t</span> Hue;
+    <span class="type">uint8_t</span> saturation; <span class="comment">// Saturation: 0~14</span>
+    <span class="type">uint8_t</span> sharpness; <span class="comment">// Sharpness: 0~11</span>
+} app_control_image_t;</code></pre><p>Notes:</p><p>1) Hue: image hue parameter, range 0~14.</p><p>Setting brightness, contrast, Hue, saturation, and sharpness all to 0xFF restores the default settings.</p><h3 id="section-058">3.3 App device status control command (TAG 0x12)</h3><p>videofps carries the actual frame rate. The current CA CH-NetsVideoFps configuration lists 25 and 30 only, with a default of 30; do not send 0/1/2. The same rule applies to TAG 0x6a and frame-rate fields forwarded to CA by Bluetooth AP/STA setup.</p><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> video_type; <span class="comment">// Reserved; set to 0</span>
+    <span class="type">uint16_t</span> devvideoheight; <span class="comment">// Preview video height: 1080</span>
+    <span class="type">uint8_t</span> videoCodeRate; <span class="comment">// Preview video bitrate; supports 4 Mbps</span>
+    <span class="type">uint8_t</span> NetCodingTypeFormat; <span class="comment">// 0: H264 1:H265</span>
+    <span class="type">uint8_t</span> videofps; <span class="comment">// Actual frame rate; the current Q03ZW configuration uses 25 or 30, not a 0/1/2 enumeration</span>
+} app_control_state_t;</code></pre><h3 id="section-060">3.4 App audio and video control command (TAG 0x13)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> audiovolume; <span class="comment">// Volume</span>
+    <span class="type">uint8_t</span> audiomute; <span class="comment">// Mute switch: 0: mute disabled; 1: mute enabled</span>
+    <span class="type">uint8_t</span> audio_alg_level; <span class="comment">// Audio noise reduction level: 0: no algorithm; 1: low; 2: medium; 3: high</span>
+} app_control_av_t;</code></pre><h3 id="section-062">3.5 App heartbeat response command (TAG 0x14)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> pushstream; <span class="comment">// Device video streaming status: 0: not streaming; 1: streaming; 2: the app forwards this stream to a server</span>
+} app_resp_heartbeat_t;</code></pre><h3 id="section-064">3.6 Device heartbeat command (TAG 0x16)</h3><p>Heartbeat length is not fixed across firmware versions. For a device running the same firmware version, the heartbeat packet length is fixed.</p><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    app_control_image_t stImage;
+    <span class="type">uint16_t</span> batterycapacity; <span class="comment">// batterycapacity=0~100 represents a displayed battery level of 0~100%</span>
+    <span class="type">uint8_t</span> chargingstate; <span class="comment">// Charging status: 1: charging; 0: not charging</span>
+    <span class="type">uint8_t</span> afstate; <span class="comment">// 0: auto; 1: manual; 2: area focus</span>
+    <span class="type">uint8_t</span> presetstate[3]; <span class="comment">// [0] through [2] correspond to presets 1 through 3; each element is 0: not set, 1: set</span>
+    <span class="type">uint8_t</span> audiovolume; <span class="comment">// Volume</span>
+    <span class="type">uint8_t</span> audiomute; <span class="comment">// Mute switch: 0: mute disabled; 1: mute enabled</span>
+    <span class="type">uint8_t</span> uvcstate; <span class="comment">// Upper 4 bits: encoding type, 0: not encoding, 1: H.264, 2: MJPEG, 3: YUY2; lower 4 bits: encoded height, 0: not encoding</span>
+    <span class="comment">// 1:360 2:720 3:1080 4:2160</span>
+    <span class="type">char</span> version[16]; <span class="comment">// Software version</span>
+    <span class="type">uint16_t</span> devvideoheight; <span class="comment">// App preview video height</span>
+    <span class="type">uint16_t</span> hdmi_height; <span class="comment">// HDMI output height; supports 720/1080/2160</span>
+    <span class="type">uint8_t</span> sd_state; <span class="comment">// bit7: 0: not recording; 1: recording. bit0~bit6: 0: card inserted normally; 1: SD card absent, prompt the user to insert a card</span>
+    <span class="comment">// 2: SD card requires formatting; 3: SD card capacity below 1G; 4: SD card error</span>
+    <span class="type">uint8_t</span> audio_state; <span class="comment">//0 mic; 1 line in</span>
+    <span class="type">uint8_t</span> audio_alg_level; <span class="comment">// Audio noise reduction level: 0: no algorithm; 1: low; 2: medium; 3: high</span>
+    <span class="type">uint8_t</span> gesture_alg_status; <span class="comment">// Gesture algorithm switch; reserved</span>
+    <span class="type">char</span> dev_name[24]; <span class="comment">// Device name, maximum 24 bytes</span>
+    <span class="type">uint8_t</span> wdr; <span class="comment">// Range: 0~5</span>
+    <span class="type">uint8_t</span> blc; <span class="comment">// Range: 0~1</span>
+    <span class="type">uint8_t</span> image_style; <span class="comment">// Image style: 0: default; 1: beauty</span>
+    <span class="type">uint8_t</span> spot_light_mode; <span class="comment">// Exposure mode</span>
+    <span class="type">uint8_t</span> spot_light_value; <span class="comment">// Exposure region value</span>
+    <span class="type">uint8_t</span> ndi_mode; <span class="comment">// Reserved</span>
+    <span class="type">uint8_t</span> usb_mode; <span class="comment">//0 device(UVC) 1 host(POE) ; </span>
+    <span class="type">char</span> eth_ip[32]; <span class="comment">// Wired interface IP address; transmit all zeros if no cable is connected</span>
+    <span class="type">uint8_t</span> fps; <span class="comment">// Actual frame rate; the current configuration uses 25 or 30</span>
+    <span class="type">uint8_t</span> hdmi_fps; <span class="comment">// Not assigned by the current heart_beat_proc(); remains 0 after initialization and must not be interpreted as a valid frame rate</span>
+    <span class="type">uint8_t</span> rtmp_stat; <span class="comment">// 0: disconnected; 1: streaming</span>
+    <span class="type">uint8_t</span> videoCodeRate; <span class="comment">// Preview video bitrate: 2~24Mbps</span>
+    <span class="type">uint16_t</span> devVideoheightV2; <span class="comment">// Reserved</span>
+    <span class="type">uint8_t</span> area_af_lock; <span class="comment">// 0: unlock; 1: lock (added for Q03ZW)</span>
+    <span class="type">uint8_t</span> area_exp_lock; <span class="comment">// 0: unlock; 1: lock (added for Q03ZW)</span>
+    <span class="type">uint8_t</span> BitMaskByte1; <span class="comment">// bit0: 1 [portrait orientation] (added for Q03ZW)</span>
+    <span class="type">uint32_t</span> sdRecordTime; <span class="comment">// Unit: seconds (SD card recording time) (added for Q03ZW)</span>
+    <span class="type">uint16_t</span> ZoomPos; <span class="comment">// Current zoom position (added for Q03ZW)</span>
+    <span class="type">uint16_t</span> FocusPos; <span class="comment">// Current focus position (added for Q03ZW)</span>
+    <span class="type">uint8_t</span> NetCodingType; <span class="comment">// 0: H.264; 1: H.265 (added for Q03ZW)</span>
+    <span class="type">uint32_t</span> BitMaskByte2;
+    <span class="type">uint8_t</span> AudioSource; <span class="comment">// 1: LINE IN connector; 2: built-in MIC (added for Q03ZW, 20260603)</span>
+    <span class="type">uint8_t</span> BitMaskByte3; <span class="comment">// bit0: 1 [0x69 extend protocol]</span>
+} dev_send_heartbeat_t;</code></pre><p>1) Added fields: area_af_lock, area_exp_lock, BitMaskByte1, sdRecordTime, ZoomPos, and FocusPos. </p><p>2) BitMaskByte1, bit0 = 1, indicates portrait orientation support.</p><p>3) BitMaskByte1, bit1: 1 (bit1 value is 1), indicates support for the new RTMP protocol. The app uses the new protocol for all communication with devices that support it, and otherwise uses the old protocol. (2025-10-17)</p><p>4) For Q03ZW, the portrait resolution is also returned in devvideoheight.</p><p>5) BitMaskByte1, bit2: 1, indicates support for SD card recording at power-on. (2025-10-20)</p><p>6) BitMaskByte1, bit3: 1, indicates support for setting the encoding format and fps using TAG 0x12. (2025-10-29)</p><p>7) BitMaskByte1, bit4: 1, indicates support for manual exposure using TAG 0x2d and exposure parameter retrieval using 0x64. Q03ZW only. (2025-11-18)</p><p>8) BitMaskByte1, bit5: 1, indicates support for setting SRT Caller mode using TAG 0x1f.</p><p>9) BitMaskByte1.bit6 is undefined and not set in the current CA, so it remains 0. TAG 0x10 has no PT control handler for ctrlnum=0x5; this bit must not be interpreted as indicating PT support.</p><p>10) BitMaskByte1, bit7 = 1, indicates support for forced SD card formatting using TAG 0x67.</p><p>11) BitMaskByte2 controls whether each function is displayed; 1 indicates support. bit0: NDI; bit1: RTSP; bit2: SRT; bit3: SRT Caller; bit4: RTMP</p><p>bit5: presets; bit6: network settings switch; bit7: app-controlled power-off (TAG 0x18)</p><p>12) BitMaskByte3 definitions:</p><p>bit0=1: extended protocol 0x69 supported</p><p>bit1=1: command 0x6a supported</p><p>bit2=1: command 0x6b supported</p><p>bit3=1: command 0x6c supported</p><p>bit4=1: command 0x6d supported</p><p>bit5=1: RTMP H.265 streaming supported</p><p>bit6=1: command 0x6e supported</p><p>batterycapacity=0~100 represents a displayed battery level of 0~100.</p><p>batterycapacity=10 represents a 10% battery level; prompt the user to charge the device.</p><h3 id="section-089">3.7 App firmware upgrade command (TAG 0x17)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">char</span> image_md5[33]; <span class="comment">// MD5 of the firmware file</span>
+    <span class="type">int32_t</span> image_len; <span class="comment">// Firmware file length</span>
+} app_update_image_t;</code></pre><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> update_state; <span class="comment">// 0: upgrade successful; 1: upgrade failed; 2: incorrect MD5</span>
+} dev_update_state_t;</code></pre><p>After sending the upgrade command (app_update_image_t), the app immediately sends the firmware package as raw TCP data, without the framing defined in Section 1. Other TCP control packets must not be interleaved. The device returns the upgrade status to the app using dev_update_state_t.</p><h3 id="section-093">3.8 App factory reset command (TAG 0x18)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> set_default; <span class="comment">// 1: restore factory settings; other values are invalid</span>
+    <span class="type">uint8_t</span> power_off; <span class="comment">// 1: power off; other values are invalid. Note : check heartbeat capabilities before using this field</span>
+} app_set_default_t;</code></pre><h3 id="section-095">3.9 App recording control command (TAG 0x19)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> start_record; <span class="comment">// 0: stop recording; 1: start recording</span>
+    <span class="type">uint8_t</span> sd_format; <span class="comment">// 0: no operation; 1: format SD card</span>
+} app_start_record_t;</code></pre><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> record_state; <span class="comment">// 0: operation successful (recording or formatting); 1: SD card absent, prompt the user to insert a card; 2: formatting required; 3: SD card capacity below 1G; 4: SD card error</span>
+} dev_record_state_t;</code></pre><h3 id="section-098">3.10 App time synchronization command (TAG 0x1a)</h3><p>The time synchronization VALUE is fixed at 39 bytes. Tformat occupies 15 bytes: in timestamp mode, clear the structure, fill mstime, timeZone, and timeDelta, and explicitly set Tformat.date[14] to 1. If this byte is 0, CA processes a 14-digit date string. timeZone is an integer offset in hours, positive east of UTC (for example, +8); the accepted range is -12 to +12 and does not represent half-hour time zones. timeDelta is the RTT in milliseconds: 0 performs baseline synchronization; a positive value below 60 is used for RTT/2+33ms compensation only if it improves on the previous RTT. Negative values do not adjust the time.</p><p>Synchronize time using the mstime timestamp format.</p><p>App-to-device payload</p><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">union</span> {
+        <span class="type">char</span> date[15]; <span class="comment">// Date format</span>
+        <span class="type">struct</span> {
+            <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> mstime; <span class="comment">// 64-bit UTC timestamp (time zone 0), in milliseconds</span>
+            <span class="type">signed</span> <span class="type">char</span> timeZone; <span class="comment">// Integer hours, -12 to +12; positive east of UTC, for example +8 for Beijing time</span>
+            <span class="type">short</span> timeDelta; <span class="comment">// Previous round-trip time (RTT) in ms; 0: baseline synchronization; a positive value must be below 60 to qualify for compensation</span>
+        };
+    }Tformat;
+} app_set_time_t;</code></pre><p>The device also replies using TAG 0x1a, with the following structure.</p><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">//char product_sn[24] ="CPS202302281025"</span>
+    <span class="type">uint8_t</span> time_state; <span class="comment">// 1: date format; 2: timestamp format; 0: invalid</span>
+} dev_set_time_state_t;</code></pre><p>Time synchronization response structure</p><h3 id="section-105">3.11 App command to set HDMI output resolution (TAG 0x21)</h3><p>The current CA HDMI set payload contains only product_sn[24] and hdmi_height, totaling 26 bytes. It does not include fps or set the frame rate.</p><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint16_t</span> hdmi_height; <span class="comment">// Video encoding resolution; supports 720/1080/2160</span>
+} app_set_hdmi_t;</code></pre><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> set_state; <span class="comment">// 0: setting successful; 1: setting failed</span>
+} set_hdmi_state_t;</code></pre><h3 id="section-108">3.12 App command to read HDMI output resolution (TAG 0x22)</h3><p>The current CA HDMI read response is also 26 bytes and returns product_sn and hdmi_height only, without fps.</p><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint16_t</span> hdmi_height; <span class="comment">// Video encoding resolution; supports 720/1080/2160</span>
+} app_get_hdmi_t;</code></pre><h3 id="section-110">3.13 App command to set anti-flicker parameters (TAG 0x23)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> freq_mode; <span class="comment">// 0: outdoor mode, anti-flicker off; 1: 50 Hz; 2: 60 Hz</span>
+} app_set_antiflicker_t;</code></pre><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> set_state; <span class="comment">// 0: setting successful; 1: setting failed</span>
+} set_antiflicker_state_t;</code></pre><h3 id="section-113">3.14 App command to get anti-flicker parameters (TAG 0x24)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> freq_mode; <span class="comment">// 0: outdoor mode, anti-flicker off; 1: 50 Hz; 2: 60 Hz</span>
+} app_get_antiflicker_t;</code></pre><h3 id="section-115">3.15 App command to set the device name (TAG 0x25)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">char</span> dev_name[24]; <span class="comment">// Device name, maximum 24 bytes; the final byte must be '\0'</span>
+} app_set_devname_t;</code></pre><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> set_state; <span class="comment">// 0: setting successful; 1: setting failed</span>
+} set_devname_state_t;</code></pre><p>The device name must use UTF-8. After the name is changed and the network reconnects, the BLE local name is updated to the device name. The BLE manufacturer information contains cps followed by the serial number. The device name is synchronized to the app through heartbeat packets.</p><h3 id="section-119">3.16 App command to configure the NDI license (TAG 0x26)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">char</span> ndi_license_name[64];
+    <span class="type">char</span> ndi_license_id[64];
+} app_set_ndi_license_t;</code></pre><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> set_state; <span class="comment">// 0: setting successful; 1: setting failed</span>
+} set_ndi_license_state_t;</code></pre><p>If NDI license configuration succeeds, the device returns the configuration status and automatically reboots; the app must notify the user with a dialog. On failure, the device only returns the status and does not reboot. Setting both ndi_license_name and ndi_license_id to "set-default" restores the factory NDI license; after returning the status, the device automatically reboots, and the app must notify the user.</p><h3 id="section-123">3.17 App command to get the NDI license (TAG 0x27)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">char</span> ndi_license_name[64];
+    <span class="type">char</span> ndi_license_id[64];
+} app_get_ndi_license_t;</code></pre><h3 id="section-125">3.18 App command to set TOF status (TAG 0x28)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> tof_enable; <span class="comment">// 0: off; 1: on</span>
+} app_set_tof_t;</code></pre><h3 id="section-127">3.19 App command to get TOF status (TAG 0x29)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> tof_enable; <span class="comment">// 0: off; 1: on</span>
+} app_get_tof_t;</code></pre><h3 id="section-129">3.20 App command to set WDR (TAG 0x2a)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> wdr; <span class="comment">// Range: 0~5</span>
+} app_set_wdr_t;</code></pre><h3 id="section-131">3.21 App command to set BLC (TAG 0x2b)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> blc; <span class="comment">// Range: 0~1</span>
+} app_set_blc_t;</code></pre><h3 id="section-133">3.22 App command to switch image style (TAG 0x2c)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> image_style; <span class="comment">// 0: default style; 1: beauty style</span>
+} app_set_image_style_t;</code></pre><p>Notes:</p><p>1) image_style: the new UI supports four modes, Standard, Outdoor, Pastel, and Custom, corresponding to image_style values 0x10, 0x11, 0x12, and 0x13. Outdoor and Pastel are not currently supported by the ISP, so the app does not display them.</p><p>2) For older app versions, the structure definitions above remain in use.</p><h3 id="section-138">3.23 App command to switch exposure mode (TAG 0x2d)</h3><p>Old version</p><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> mode; <span class="comment">// 0: average; 1: region exposure; 2: center exposure</span>
+    <span class="type">uint8_t</span> value; <span class="comment">// Valid when mode=1; range: 0~34</span>
+} app_set_spot_light_t;</code></pre><p>New version; check heartbeat capabilities before use</p><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> mode; <span class="comment">// 0: average; 1: region exposure; 2: center exposure; 3: manual exposure</span>
+    <span class="type">uint8_t</span> value; <span class="comment">// Valid when mode=1; range: 0~34</span>
+    <span class="type">uint8_t</span> shutter; <span class="comment">// Shutter range: 6~21</span>
+    <span class="type">uint8_t</span> gain; <span class="comment">// Gain range: 0~14</span>
+} app_set_spot_light_t;</code></pre><p>The image is divided into 35 regions in a 7-by-5 grid. Exposure is calculated using only the selected region. Region indices 0~34 run from left to right, then top to bottom.</p><h3 id="section-145">3.24 App command to set USB operating mode (TAG 0x2f)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> usb_mode; <span class="comment">//0 device(UVC) 1 host(POE); </span>
+} app_set_usb_mode_t;</code></pre><h3 id="section-147">3.25 App command to set white balance (TAG 0x30)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> mode; <span class="comment">//</span>
+    <span class="type">uint8_t</span> saturation; <span class="comment">// Saturation</span>
+    <span class="type">uint16_t</span> color_temperature; <span class="comment">// Color temperature</span>
+    <span class="type">uint8_t</span> chroma; <span class="comment">// Chroma</span>
+    <span class="type">uint8_t</span> r_gain; <span class="comment">// Red gain</span>
+    <span class="type">uint8_t</span> b_gain; <span class="comment">// Blue gain</span>
+    <span class="type">uint8_t</span> wb_sensitivity; <span class="comment">// White balance sensitivity</span>
+    <span class="type">uint8_t</span> one_click_trigger; <span class="comment">// One-push trigger</span>
+    <span class="type">uint8_t</span> auto_white_balance_lock; <span class="comment">// Lock in automatic white balance mode: 0: off; 1: on. </span>
+} app_set_wb_t;</code></pre><p>Notes:</p><p>1) Setting and reading mode use the same enumeration: 0x10 Daylight (CA 5000K), 0x11 Tungsten 3000K, 0x12 Fluorescent (CA 4500K), 0x13 Shade 7500K, 0x14 Cloudy 6000K, 0x15 Custom, and 0x16 Automatic.</p><h3 id="section-151">3.26 App command to get white balance (TAG 0x31)</h3><p>mode matches TAG 0x30 and ranges from 0x10 to 0x16. The active read path fills mode, color_temperature, and auto_white_balance_lock only. Other fields are cleared by memset and must not be treated as actual measurements.</p><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> mode;
+    <span class="type">uint8_t</span> saturation; <span class="comment">// Saturation</span>
+    <span class="type">uint16_t</span> color_temperature; <span class="comment">// Color temperature</span>
+    <span class="type">uint8_t</span> chroma; <span class="comment">// Chroma</span>
+    <span class="type">uint8_t</span> r_gain; <span class="comment">// Red gain</span>
+    <span class="type">uint8_t</span> b_gain; <span class="comment">// Blue gain</span>
+    <span class="type">uint8_t</span> wb_sensitivity; <span class="comment">// White balance sensitivity</span>
+    <span class="type">uint8_t</span> one_click_trigger; <span class="comment">// One-push trigger // 0: device; 1: host</span>
+    <span class="type">uint8_t</span> auto_white_balance_lock; <span class="comment">// Lock in automatic white balance mode: 0: off; 1: on. </span>
+} app_get_wb_t;</code></pre><h3 id="section-153">3.27 App command to set recording bitrate (TAG 0x32)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> videoCodeRate; <span class="comment">// Preview video bitrate; supports 2/4/8/16/32 Mbps</span>
+    <span class="type">uint16_t</span> devvideoheight; <span class="comment">// Video format; supports 720/1080</span>
+} app_set_CodeRate_t;</code></pre><h3 id="section-155">3.28 App command to get recording bitrate (TAG 0x33)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> videoCodeRate; <span class="comment">// Preview video bitrate; supports 2/4/8/16/32 Mbps</span>
+    <span class="type">uint16_t</span> devvideoheight; <span class="comment">// Video format; supports 360/720/1080/2160</span>
+} app_get_CodeRate_t;</code></pre><h3 id="section-157">3.29 App command to flip the image (TAG 0x34)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> mountMode; <span class="comment">// Mounting orientation: 0: upright; 1: inverted</span>
+} app_set_MountMode_t;</code></pre><h3 id="section-159">3.30 App command to get image mounting orientation (TAG 0x35)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> mountMode; <span class="comment">// Mounting orientation: 0: upright; 1: inverted</span>
+} app_get_MountMode_t;</code></pre><h3 id="section-161">3.31 App command to configure RTMP streaming (TAG 0x36)</h3><p>Example: a 300-byte URL excluding NUL is sent in three fragments, all with url_size=300. The pairs (url_offset, URL bytes in fragment) are (0,128), (128,128), and (256,44); LENGTH is 246 for every fragment. Zero-fill the unused rtmp_url tail. CA terminates the reassembled string.</p><p>Every fragment receives a TAG 0x36 set_rtmp_state_t response (25 bytes). set_state=0 means the fragment was accepted; for the final fragment, it also means the configuration was applied. set_state=1 indicates failure. Configuration is not applied until all fragments arrive. Wait for each response before sending the next fragment. After a connection change or fragment error, resend the entire URL from offset=0; resuming from an acknowledged intermediate fragment is unsupported. This acknowledgment does not indicate a successful RTMP server connection; query TAG 0x5c separately.</p><p>Extended URL fragmentation: send fragments sequentially over the same connection, starting at url_offset=0. Each subsequent offset must equal the number of bytes already received; copy min(128, url_size-url_offset) bytes per fragment. url_size, enable, and PowerOnPushEn must match across fragments; the username, password, and other settings come from the first fragment. url_size may exclude NUL or include one trailing NUL. Data after an embedded NUL is rejected. url_size must not exceed 512.</p><p>LENGTH distinguishes the structures: app_set_rtmp_t is 234 bytes and app_set_rtmp_ext_t is 246 bytes; the current CA rejects other lengths. BitMaskByte1.bit1 indicates extended RTMP protocol support. A valid URL must use rtmp:// or rtmps://, contain a nonempty host and path, and contain no spaces, control characters, or DEL. The current RTMP_URL_CAP is 512, allowing at most 511 URL bytes excluding the terminating NUL, rather than the 4096 bytes mentioned in the old internal buffer comment.</p><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> enable; <span class="comment">// RTMP switch: 0: off; 1: on</span>
+    <span class="type">char</span> rtmp_url[128]; <span class="comment">// Streaming URL</span>
+    <span class="type">char</span> username[40]; <span class="comment">// Username; initially defaults to NULL</span>
+    <span class="type">char</span> password[40]; <span class="comment">// Password; initially defaults to NULL</span>
+    <span class="type">uint8_t</span> videoCodeRate; <span class="comment">// Preview video bitrate; supports 2/4/8/16/32 Mbps; currently unused</span>
+} app_set_rtmp_t;</code></pre><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> enable; <span class="comment">// RTMP switch: 0: off; 1: on</span>
+    <span class="type">char</span> rtmp_url[128]; <span class="comment">// Streaming URL</span>
+    <span class="type">char</span> username[40]; <span class="comment">// Username; initially defaults to NULL</span>
+    <span class="type">char</span> password[40]; <span class="comment">// Password; initially defaults to NULL</span>
+    <span class="type">uint8_t</span> videoCodeRate; <span class="comment">// Preview video bitrate; supports 2/4/8/16/32 Mbps; currently unused</span>
+    <span class="type">uint16_t</span> url_size; <span class="comment">// Length of the complete RTMP URL</span>
+    <span class="type">uint16_t</span> url_offset; <span class="comment">// URLs longer than 128 bytes (rtmp_url[128]) require multiple transmissions. offset is the URL offset, starting at 0</span>
+    <span class="type">uint8_t</span> PowerOnPushEn; <span class="comment">// 1: stream at power-on; 0: do not stream at power-on</span>
+    <span class="type">uint8_t</span> reserve[7];
+} app_set_rtmp_ext_t,app_get_rtmp_ext_t;</code></pre><p>app_set_rtmp_ext_t extends app_set_rtmp_t to support URLs longer than 128 bytes while remaining compatible with the old protocol used by devices already shipped.</p><p>1) The reserved field is shortened by one byte, from reserve[8] to reserve[7]. PowerOnPushEn is added to indicate whether streaming starts at power-on. (2025-10-15)</p><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> set_state; <span class="comment">// 0: setting successful; 1: setting failed</span>
+} set_rtmp_state_t;</code></pre><h3 id="section-167">3.32 App command to get RTMP streaming information (TAG 0x37)</h3><p>The read response format depends on the saved configuration: the legacy VALUE is 234 bytes, including videoCodeRate; each extended-format fragment is 246 bytes. Extended responses have increasing url_offset values; the app reassembles them using url_size. An extended response with url_size=0 represents an empty configuration, not a valid streaming URL.</p><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> enable; <span class="comment">// RTMP switch: 0: off; 1: on</span>
+    <span class="type">char</span> rtmp_url[128]; <span class="comment">// Streaming URL</span>
+    <span class="type">char</span> username[40]; <span class="comment">// Username; initially defaults to NULL</span>
+    <span class="type">char</span> password[40]; <span class="comment">// Password; initially defaults to NULL</span>
+    <span class="type">uint8_t</span> videoCodeRate; <span class="comment">// Matches the CA read-response structure</span>
+} app_get_rtmp_t;</code></pre><h3 id="section-169">3.33 App command to set the tally light (TAG 0x38)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> enable; <span class="comment">// Tally light switch: 0: off; 1: on</span>
+} app_set_Tally_t;</code></pre><h3 id="section-171">3.34 App command to get tally light status (TAG 0x39)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> enable; <span class="comment">// Tally light switch: 0: off; 1: on</span>
+} app_get_Tally_t;</code></pre><h3 id="section-173">3.35 App command to set point focus parameters (TAG 0x3a)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">float</span> x;
+    <span class="type">float</span> y;
+} app_set_point_focus_t;</code></pre><h3 id="section-175">3.36 App command to force a factory reset (TAG 0x3b)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> enable; <span class="comment">// Forced factory reset switch: 1: enable</span>
+} app_set_force_default_t;</code></pre><h3 id="section-177">3.37 App command to get basic NDI information (TAG 0x50)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> enable; <span class="comment">// NDI enabled: 0: disabled; 1: enabled</span>
+    <span class="type">uint8_t</span> EncodeProFile; <span class="comment">// Encoding quality level: 1: ultra uhd; 2: ultra hd</span>
+    <span class="comment">//3.high uhd 4.high hd 5.medium uhd 6.medium hd 7.low</span>
+    <span class="type">char</span> NdiDeviceName[40]; <span class="comment">// NDI device name</span>
+    <span class="type">char</span> NdiMainStreamName[40]; <span class="comment">// NDI stream name</span>
+} app_get_ndi_basic_info_t;</code></pre><h3 id="section-179">3.38 App command to get advanced NDI information (TAG 0x52)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "BDG202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">char</span> group_name[40];
+    <span class="type">uint8_t</span> multicast_enable; <span class="comment">// Multicast: 0: disabled; 1: enabled</span>
+    <span class="type">char</span> multicast_ip[64]; <span class="comment">// Multicast address</span>
+    <span class="type">char</span> multicast_netmask[64]; <span class="comment">// Multicast netmask</span>
+    <span class="type">uint8_t</span> dis_server_enable; <span class="comment">// Discovery server: 0: disabled; 1: enabled</span>
+    <span class="type">char</span> dis_server_ip[40]; <span class="comment">// Discovery server address</span>
+} app_get_ndi_high_level_info_t;</code></pre><h3 id="section-181">3.39 App command to set basic NDI information (TAG 0x51)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> enable; <span class="comment">// NDI enabled: 0: disabled; 1: enabled</span>
+    <span class="type">uint8_t</span> EncodeProFile; <span class="comment">// Encoding quality level: 1: ultra uhd; 2: ultra hd</span>
+    <span class="comment">//3.high uhd 4.high hd 5.medium uhd 6.medium hd 7.low</span>
+    <span class="type">char</span> NdiDeviceName[40]; <span class="comment">// NDI device name</span>
+    <span class="type">char</span> NdiMainStreamName[40]; <span class="comment">// NDI stream name</span>
+} app_set_ndi_basic_info_t;</code></pre><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> set_state; <span class="comment">// 0: setting successful; 1: setting failed</span>
+} set_ndi_state_t;</code></pre><h3 id="section-184">3.40 App command to set advanced NDI information (TAG 0x53)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "BDG202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">char</span> group_name[40];
+    <span class="type">uint8_t</span> multicast_enable; <span class="comment">// Multicast: 0: disabled; 1: enabled</span>
+    <span class="type">char</span> multicast_ip[64]; <span class="comment">// Multicast address</span>
+    <span class="type">char</span> multicast_netmask[64]; <span class="comment">// Multicast netmask</span>
+    <span class="type">uint8_t</span> dis_server_enable; <span class="comment">// Discovery server: 0: disabled; 1: enabled</span>
+    <span class="type">char</span> dis_server_ip[40]; <span class="comment">// Discovery server address</span>
+} app_set_ndi_high_level_info_t;</code></pre><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> set_state; <span class="comment">// 0: setting successful; 1: setting failed</span>
+} set_ndi_state_t;</code></pre><h3 id="section-187">3.41 App command to get network interface information (TAG 0x56)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "BDG202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">char</span> poeNCIp[16]; <span class="comment">//poe network card ip addr</span>
+    <span class="type">char</span> poeNCMac[18]; <span class="comment">// PoE network interface MAC address, for example: c2:9f:49:4e:f5:6a</span>
+    <span class="type">char</span> wifiNCIp[16]; <span class="comment">//wifi network card ip addr</span>
+    <span class="type">char</span> wifiNCMac[18]; <span class="comment">// Wi-Fi network interface MAC address, for example: c2:9f:49:4e:f5:6a</span>
+    <span class="type">char</span> acDeviceModelOuter[32]; <span class="comment">// External model identifier</span>
+} app_get_nicinfo_t;</code></pre><h3 id="section-189">3.42 App command to get lens information (TAG 0x57)</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "BDG202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">float</span> ZoomRatio; <span class="comment">// Zoom ratio, including digital zoom</span>
+} app_get_control_lens_t;</code></pre><h3 id="section-191">3.43 RTMP connection status query (Q03ZW NEW), set: TAG 0x5c, get: TAG 0x5c</h3><pre><code><span class="comment">//rtmp connect state:</span>
+<span class="comment">//ConnectState = 1 "RTMP Server Status : Connect to server …"</span>
+<span class="comment">//ConnectState = 2 "RTMP Server Status : Connection success"</span>
+<span class="comment">//ConnectState = 3 "RTMP Server Status : Connection timeout"</span>
+<span class="comment">//ConnectState = 4 "RTMP Server Status : Disconnect with server"</span>
+<span class="comment">//ConnectState = 5 "RTMP Server Status : RTMP disable"</span>
+<span class="comment">//ConnectState = 6 "RTMP Server Status : RTMP enable"</span>
+<span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">//char product_sn[24]</span>
+    <span class="type">uint8_t</span> ConnectState; <span class="comment">//rtmp Connection status</span>
+    <span class="type">uint8_t</span> reserve[3];
+} app_get_rtmp_state_t,app_set_rtmp_state_t;</code></pre><p>The app queries device status; the device does not report it unsolicited. A query interval of 1 second is recommended.</p><h3 id="section-194">3.44 Region focus (Q03ZW New), set: TAG 0x5f</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">//char product_sn[24]</span>
+    <span class="type">uint8_t</span> FocusLockState; <span class="comment">//device response focus lock state:</span>
+    <span class="comment">// 0: unlock; 1: lock (indicates that focusing has finished)</span>
+    <span class="type">uint8_t</span> reserve[3];
+} app_set_focuslock_t;</code></pre><p>Valid only in region focus mode. </p><h3 id="section-197">3.45 Region exposure compensation (Q03ZW New), set: TAG 0x60</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">//char product_sn[24]</span>
+    <span class="type">sint8_t</span> ExpCompLevel; <span class="comment">// App sets the device exposure compensation level (signed value)</span>
+    <span class="type">uint8_t</span> applock; <span class="comment">//app lock state: 0[unlock] 1[lock]</span>
+    <span class="type">uint8_t</span> reserve[2];
+} app_set_expcomp_t;</code></pre><p>Valid only in region exposure mode. </p><h3 id="section-200">3.46 OSD text prompt overlay (Q03ZW New), TAG 0x61</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">//char product_sn[24]</span>
+    <span class="type">uint8_t</span> OpCode; <span class="comment">//Operate Code: 0[Set] 1[Get]</span>
+    <span class="type">uint8_t</span> DisplaySw; <span class="comment">//prompt switch: 0[OFF] 1[ON]</span>
+    <span class="type">char</span> acPromptBuf[64]; <span class="comment">//Prompt Content: Only Support ASCII</span>
+    <span class="type">uint8_t</span> DisplayPos; <span class="comment">//Prompt Display Position: 0[Upper left] 1[Upper right] 2[Lower left] 3[Lower right]</span>
+    <span class="type">uint8_t</span> reserve[8];
+} app_Osd_SimplePrompt_t;</code></pre><p>Both set and get operations use TAG=0x61. OpCode identifies the operation. </p><h3 id="section-203">3.47 Absolute zoom and focus position control (Q03ZW New), TAG 0x62</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">//char product_sn[24]</span>
+    <span class="type">uint8_t</span> OpCode; <span class="comment">//Operate Code: 0[Zoom Set] 1[Focus Set] 2[Get]</span>
+    <span class="type">uint16_t</span> ZoomRangeMin; <span class="comment">//for get Zoom Min</span>
+    <span class="type">uint16_t</span> ZoomRangeMax; <span class="comment">//for get Zoom Max</span>
+    <span class="type">uint16_t</span> FocusRangeMin; <span class="comment">//for get Focus Min</span>
+    <span class="type">uint16_t</span> FocusRangeMax; <span class="comment">//for get Focus Max</span>
+    <span class="type">uint16_t</span> ZoomCurPos; <span class="comment">//for get or set zoom pos</span>
+    <span class="type">uint16_t</span> FocusCurPos; <span class="comment">//for get or set focus pos</span>
+    <span class="type">uint8_t</span> ZoomSpeed; <span class="comment">//Zoom Speed. range 1~7. default speed: 0</span>
+    <span class="type">uint8_t</span> FocusSpeed; <span class="comment">//focus Speed. not used</span>
+    <span class="type">uint16_t</span> reserve[2];
+} app_ZF_AbsCtrl_t;</code></pre><p>Both set and get operations use TAG=0x62. OpCode identifies the operation. </p><p>1, OpCode: 0[Zoom Set] 1[Focus Set] 2[Get]</p><p>2) FocusSpeed is not currently supported; set it to 0.</p><p>3) Set ZoomSpeed to 0 to use the device default speed.</p><h3 id="section-209">3.48 Extended SD card command (Q03ZW New), TAG 0x63</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">//char product_sn[24]</span>
+    <span class="type">uint8_t</span> OpCode; <span class="comment">//Operate Code: 0[Set] 1[Get]</span>
+    <span class="type">uint8_t</span> PowerOnRecordEn; <span class="comment">//Power On Record: 1 enable 0 disbale</span>
+    <span class="type">uint8_t</span> reserve[7];
+} app_SdCard_Extended_t;</code></pre><p>1) This extended SD card command adds PowerOnRecordEn for automatic SD card recording at power-on. Use it together with bit2 of BitMaskByte1 in the heartbeat (TAG 0x16). (2025-10-20)</p><h3 id="section-212">3.49 App command to get exposure mode (Q03ZW New), TAG 0x64</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> mode; <span class="comment">// 0: average; 1: region exposure; 2: center exposure; 3: manual exposure</span>
+    <span class="type">uint8_t</span> value; <span class="comment">// Valid when mode=1; range: 0~34</span>
+    <span class="type">uint8_t</span> shutter; <span class="comment">// Shutter range: 6~21</span>
+    <span class="type">uint8_t</span> gain; <span class="comment">// Gain range: 0~14</span>
+} app_set_spot_light_t;</code></pre><p>The image is divided into 35 regions in a 7-by-5 grid. Exposure is calculated using only the selected region. Indices 0~34 run from left to right, then top to bottom. Check heartbeat capabilities before use. To retrieve the parameters, send the request with the fields left empty, as stated in the source.</p><h3 id="section-216">3.50 App camera preset control (Q03ZW New), TAG 0x65</h3><p>The confirmed preset range is 1 through 5 for setting, clearing, and recalling; 0 is invalid. PreCommand=0/1/2 clears, sets, or recalls a preset respectively, then returns the status of presets 1 through 5, as does PreCommand=3. Preinfo[0] corresponds to preset 1 through Preinfo[4] for preset 5. Preinfo[5] is reserved and currently remains 0.</p><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> PrePosition; <span class="comment">// Preset number, range 1 through 5; 0 is invalid</span>
+    <span class="type">uint8_t</span> PreCommand; <span class="comment">// 0: clear; 1: set; 2: recall; 3: query presets 1 through 5; every operation returns the status array</span>
+} app_set_Pre_t;</code></pre><p>Response structure</p><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> Preinfo[6]; <span class="comment">// [0] through [4] correspond to presets 1 through 5, 0: absent, 1: present; [5] is currently 0</span>
+} app_get_pre_t;</code></pre><h3 id="section-221">3.51 App network configuration (Q03ZW New), TAG 0x66</h3><p>This response has no separate set_state field; receiving the structure does not necessarily indicate a successful setting. Invalid static addresses cause set_networke_info to fail. The app should compare the returned address with the requested value and, in DHCP mode, wait for an actual lease.</p><p>NetDevType=0 selects wlan0; the wired selection prefers eth1, then usb0. SetOrGet=0 immediately runs ifconfig/routing commands or starts udhcpc and saves the selected interface configuration. SetOrGet=1 is read-only. Both paths read back the selected interface's live IP address, subnet mask, and gateway and return the same structure. Wi-Fi AP mode skips the setting and returns actual AP information with Dhcp=1. Changing a STA address may break the control connection; the app should reconnect using the new address. If Wi-Fi is requested but wlan0 is absent, the implementation attempts a wired interface; verify the actual interface capabilities before calling.</p><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> SetOrGet; <span class="comment">// 0: set; 1: get. NetDevType must also contain a valid value when reading</span>
+    <span class="type">uint8_t</span> NetDevType; <span class="comment">//0:wifi 1:poe</span>
+    <span class="type">uint8_t</span> Dhcp; <span class="comment">// 0: DHCP; 1: static</span>
+    <span class="type">uint8_t</span> IpAddress[16]; <span class="comment">// Static IP address; applies when Dhcp=1 and is ignored when Dhcp=0</span>
+    <span class="type">uint8_t</span> SubnetMask[16]; <span class="comment">// Subnet mask; applies when Dhcp=1 and is ignored when Dhcp=0</span>
+    <span class="type">uint8_t</span> Gateway[16]; <span class="comment">// Gateway; applies when Dhcp=1 and is ignored when Dhcp=0</span>
+} app_set_networke_t;</code></pre><p>Both TAG 0x66 set and query operations return app_set_networke_t (75 bytes) using the same TAG. The response contains the selected interface's actual IP address, subnet mask, and gateway, rather than always returning Wi-Fi information. See the additional notes in this section.</p><h3 id="section-224">3.52 Forced SD card formatting (Q03ZW New), TAG 0x67</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">//</span>
+    <span class="type">uint8_t</span> OpCode; <span class="comment">//Operate Code: 0[Set] 1[Response]</span>
+    <span class="type">uint8_t</span> FormatState; <span class="comment">// Formatting status: 0: succeed</span>
+} app_ForceSdFormat_t;</code></pre><p>Both set and response operations use TAG=0x67. OpCode identifies the operation. (2026-04-21)</p><p>1) bit7 of BitMaskByte1 in the heartbeat response indicates whether forced SD card formatting is supported.</p><h3 id="section-228">3.53 Extended protocol header, TAG 0x69</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">uint8_t</span> OldTag; <span class="comment">// OldTag = 0x69</span>
+    <span class="type">uint16_t</span> ExtLength; <span class="comment">// Length including ExtTag, HeadXorCrc, and the payload</span>
+    <span class="type">uint16_t</span> ExtTag;
+    <span class="type">uint8_t</span> HeadXorCrc; <span class="comment">// Extended header checksum, excluding this field itself</span>
+}app_ExtendedHead_t;</code></pre><p>1) The extended protocol supports commands with payloads longer than 255 bytes. See Protocol description near the top of this document. (2026.06.30)</p><p>2) bit0=1 in the added heartbeat field BitMaskByte3 indicates support for the 0x69 extended protocol.</p><h4 id="section-232">3.53.1 Set SRT parameters, EXT TAG 0x01</h4><p>This section uses the 0x69 / EXT TAG 0x01 extended frame. The app_srt_t VALUE is 430 bytes and EXT_LENGTH is 433. delay is in milliseconds, range 20 to 8000. The response uses EXT TAG 0x01 and set_srt_state_t (25 bytes; 0: success, 1: failure). Check BitMaskByte3.bit0 first.</p><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">//char product_sn[24]</span>
+    <span class="type">uint8_t</span> enable; <span class="comment">// SRT enabled: 0: disabled; 1: enabled</span>
+    <span class="type">uint16_t</span> port_num; <span class="comment">// Port range: 0~65535. Ports 12023, 52380, 52381, and 59973 are already occupied and must not be sent</span>
+    <span class="type">uint16_t</span> delay; <span class="comment">// SRT latency in ms, range 20 to 8000</span>
+    <span class="type">uint8_t</span> mode; <span class="comment">// Mode: 0: LISTEN; 1: CALLER</span>
+    <span class="type">char</span> URL[60]; <span class="comment">// URL used in CALLER mode</span>
+    <span class="type">char</span> StreamId[256]; <span class="comment">// Stream ID</span>
+    <span class="type">char</span> Passphrase[80]; <span class="comment">// Passphrase</span>
+    <span class="type">uint32_t</span> EncryAesType; <span class="comment">// Encryption type: SRT_AES_MODE_E_NONE = 0; SRT_AES_MODE_E_128 = 16</span>
+    <span class="comment">// SRT_AES_MODE_E_192 = 24 SRT_AES_MODE_E_256 = 32</span>
+} app_srt_t;</code></pre><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> set_state; <span class="comment">// 0: setting successful; 1: setting failed. On failure, prompt the user that the port may be occupied and suggest trying another port</span>
+} set_srt_state_t;</code></pre><h4 id="section-235">3.53.2 Get SRT parameters, EXT TAG 0x02</h4><p>The extended query request requires only the 24-byte product_sn, with EXT_LENGTH=27. The response uses EXT TAG 0x02 and returns a 430-byte app_srt_t, with EXT_LENGTH=433. Do not interpret the 130-byte legacy response of standard-frame TAG 0x20 as this response format.</p><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">//char product_sn[24]</span>
+} app_get_t;</code></pre><p>1) The app sends app_get_t, containing only product_sn[24] with a VALUE length of 24 bytes. The device returns app_srt_t using EXT TAG=0x02, with a VALUE length of 430 bytes.</p><h3 id="section-238">3.54 Network stream encoding parameters (Q03ZW New), TAG 0x6a</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">// char product_sn[24] = "CPS202302281025"; assignment using strcpy is also supported</span>
+    <span class="type">uint8_t</span> video_type; <span class="comment">// Unused</span>
+    <span class="type">uint16_t</span> devvideoheight; <span class="comment">// Preview video height: 720, 1080, 2160</span>
+    <span class="type">uint8_t</span> CodingMaxRate; <span class="comment">// Maximum encoding bitrate: 2~24 Mbps</span>
+    <span class="type">uint8_t</span> NetCodingTypeFormat; <span class="comment">// Encoding format: 0: H.264; 1: H.265</span>
+    <span class="type">uint8_t</span> videofps; <span class="comment">// Actual frame rate; the current Q03ZW configuration uses 25 or 30</span>
+    <span class="type">uint16_t</span> CodingMinRate; <span class="comment">// Minimum encoding bitrate in Kbps, for example: 700 Kbps. A value of 0 selects a fixed bitrate determined by CodingMaxRate</span>
+    <span class="type">uint8_t</span> Reseved[6];
+} app_NetCodingParam_t;</code></pre><p>1) TAG=0x6a is added to configure network encoding parameters. The old command is TAG=0x12.</p><p>2) CodingMaxRate corresponds to videoCodeRate in the old command.</p><p>3) CodingMinRate sets the minimum dynamic bitrate. Set it to 0 to disable dynamic bitrate.</p><p>4) bit1=1 of BitMaskByte3 in the TAG=0x16 heartbeat indicates support for TAG=0x6a.</p><p>5) bit4 of BitMaskByte in the TAG=0x07 BLE IP response indicates support for extended network encoding parameters, TAG=0x6a.</p><h3 id="section-245">3.55 Image mirror and flip (Q03ZW New), TAG 0x6c</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">//char product_sn[24]</span>
+    <span class="type">uint8_t</span> SetOrGet; <span class="comment">// 0: Get ability 1: Get Vaule 2: Set Value Mirror 3: Set Value Filp</span>
+    <span class="type">uint8_t</span> RotateState; <span class="comment">// SetOrGet: Set --------- bit0: 1 Mirror On; 0 Mirror Off</span>
+    <span class="comment">// bit0: 1 Flip On; 0 Flip Off</span>
+} app_ImageRotateConf_t;</code></pre><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">//char product_sn[24]</span>
+    <span class="type">uint8_t</span> SetOrGet; <span class="comment">// 0: capabilities; 1: state; 2: mirror setting result; 3: flip setting result</span>
+    <span class="type">uint8_t</span> RotateState; <span class="comment">// SetOrGet: Get ability ---------- bit0: 1 Support Mirror;</span>
+    <span class="comment">// bit1: 1 Support Flip</span>
+    <span class="comment">// SetOrGet: Get Vaule ---------- bit0: 1 Mirror On; 0 Mirror Off</span>
+    <span class="comment">// bit1: 1 Flip On; 0 Flip Off</span>
+    <span class="comment">// SetOrGet: Set Value ---------- 0: ok ; !0 fail</span>
+} app_ImageRotateResp_t;</code></pre><p>1) app_ImageRotateConf_t is the control command sent by the app.</p><p>SetOrGet=0: query device mirror and flip capabilities. bit0=1: mirror supported; bit1=1: flip supported.</p><p>SetOrGet=1: query the current mirror and flip status. bit0 represents mirror; bit1 represents flip.</p><p>SetOrGet=2: control mirroring. RotateState=1: enable; RotateState=0: disable.</p><p>SetOrGet=3: control flipping. RotateState=1: enable; RotateState=0: disable.</p><p>2) app_ImageRotateResp_t is the device response to the app.</p><p>SetOrGet=0: RotateState returns mirror and flip capabilities. Repeated queries are unnecessary because these capabilities do not change dynamically.</p><p>SetOrGet=1: RotateState returns the current status. bit0 represents mirror; bit1 represents flip.</p><p>SetOrGet=2: RotateState returns the mirror setting result. 0: success; nonzero: failure.</p><p>SetOrGet=3: RotateState returns the flip setting result. 0: success; nonzero: failure.</p><p>3) bit3=1 of BitMaskByte3 in the TAG=0x16 heartbeat indicates support for TAG=0x6c.</p><p>4) Display mirror and flip controls according to the capabilities returned with SetOrGet=0. The current CA returns RotateState=0x03, indicating support for both mirror and flip; the old mirror-only comment does not apply.</p><h3 id="section-260">3.56 Automatic device reboot notification (Q03ZW New), TAG 0x6d</h3><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">//char product_sn[24]</span>
+    <span class="type">uint8_t</span> SetOrGet; <span class="comment">// 1: Device To APP(Notify)</span>
+    <span class="comment">// 2: App To Device(Response)</span>
+    <span class="type">uint8_t</span> RebootCause; <span class="comment">// 1: VideoFps</span>
+} app_DeviceReboot_t;</code></pre><p>1) For a device-initiated reboot notification, SetOrGet=1 indicates a device-to-app message. RebootCause=1 indicates a reboot caused by a frame rate change.</p><p>2) The app must respond to the device with SetOrGet=2 and the same RebootCause as the received message.</p><p>3) bit4=1 of BitMaskByte3 in the TAG=0x16 heartbeat indicates support for TAG=0x6d.</p><h3 id="section-265">3.57 Lens self-check (Q03ZW New), TAG 0x6e</h3><pre><code><span class="type">typedef</span> <span class="type">enum</span> tagLENS_SELF_CHECK_E
+{
+    LENS_SELF_CHECK_EXEC_OK, <span class="comment">// Execution ok</span>
+    LENS_SELF_CHECK_INIT_FAIL, <span class="comment">// initialization failure</span>
+    LENS_SELF_CHECK_RUNNING, <span class="comment">// running</span>
+    LENS_SELF_CHECK_EXEC_FAIL, <span class="comment">// Execution failed</span>
+    LENS_SELF_CHECK_NOT_SUPPORT, <span class="comment">// Command not supported</span>
+}LENS_SELF_CHECK_E;</code></pre><pre><code><span class="type">typedef</span> <span class="type">struct</span> {
+    <span class="type">char</span> product_sn[24]; <span class="comment">//char product_sn[24]</span>
+    <span class="type">uint8_t</span> SetOrGet; <span class="comment">// 1: App To Device</span>
+    <span class="type">uint8_t</span> Status; <span class="comment">// Lens SelfCheck Status: LENS_SELF_CHECK_E</span>
+} app_LensSelfCheck_t;
+#pragma pack()</code></pre><p>1) Both app-to-device commands and device-to-app responses use app_LensSelfCheck_t. (2026.09.22)</p><p>2) For an app command, SetOrGet=1 and Status may be set to 0.</p><p>3) For a device response, SetOrGet=1. See LENS_SELF_CHECK_E for status details.</p><p>4) bit6=1 of BitMaskByte3 in the TAG=0x16 heartbeat indicates support for TAG=0x6e.</p><h2 id="section-272">4 TCP video and audio stream transport</h2><p>After adding a device, the app retrieves preview video over TCP using standard RTSP. URL format: rtsp://ip/ch1.</p><h2 id="camera-connection">5 Camera Discovery and Connection</h2>
+<p>Recommended sequence: discover the camera over Bluetooth → read its IP address and Wi-Fi information → repeat Bluetooth network setup if necessary → establish TCP control and heartbeat connections → send TAG 0x6a to configure encoding → send TAG 0x14 with pushstream=1 to start encoding → start RTSP live preview. The following procedure assumes that the phone and camera use the same Wi-Fi network.</p>
+
+<h3 id="camera-discovery">5.1 Bluetooth Discovery and Device Identification</h3>
+<ol>
+<li>Enable Bluetooth, obtain the scan and connection permissions required by the phone's operating system, and scan for nearby BLE devices.</li>
+<li>Parse the advertisement's Manufacturer Specific Data and initially filter devices by manufacturer ID <code>0x005D</code>. The manufacturer data contains the camera's SN string, for example <code>CPS202302281025</code>. In the raw advertising field, the manufacturer ID is encoded as the two bytes <code>5D 00</code>, followed by the SN. If the phone's Bluetooth API provides the manufacturer ID separately, read the SN directly from the corresponding data value.</li>
+<li>Use the advertised Local Name to display the device name and the SN to distinguish devices. Names can be changed and are not unique identifiers; the <code>CPS</code> prefix alone does not identify the target camera.</li>
+<li>After the user selects a device, establish a BLE connection and discover its GATT services. Confirm that the network setup service and characteristics listed below are present. Then read <code>product_sn</code> from the IP characteristic and verify that it matches the selected device's advertised SN. Use that same SN in subsequent commands.</li>
+</ol>
+<div class="table-wrap"><table><thead><tr><th>Purpose</th><th>UUID</th><th>Operation</th></tr></thead><tbody>
+<tr><td>Camera Wi-Fi setup service</td><td class="mono">1B7E8251-2877-41C3-B46E-CF057C562023</td><td>Discover the service after connection</td></tr>
+<tr><td>AP/STA network setup characteristic AP_STA_UUID</td><td class="mono">ACA0EF7C-EEAA-48AD-9508-19A6CEF6B356</td><td>Write network setup commands; read the network-mode response</td></tr>
+<tr><td>IP and network information characteristic DEV_IP_V2_UUID</td><td class="mono">90753043-6E40-4590-AFF6-5B48F6412E2F</td><td>Read the TAG 0x07 response frame</td></tr>
+</tbody></table></div>
+<p>Parse the advertised manufacturer data during discovery, then discover the services after connecting. The service UUID does not have to appear in the advertisement for the camera to be discovered. The manufacturer ID is an initial filter, GATT services and characteristics confirm the interface, and the SN identifies the selected device.</p>
+
+<h3 id="camera-network">5.2 Reading the IP Address and Bluetooth Network Setup</h3>
+<p>Perform a GATT read on <code>DEV_IP_V2_UUID</code> to receive a complete TAG 0x07 protocol frame with VALUE structured as <code>dev_ipV2_t</code>. Validate the header, length, checksum, and trailer, then parse <code>product_sn</code>, <code>wlan_ip</code>, <code>wlan_state</code>, <code>wifi_ssid</code> and <code>wifi_bssid</code>. For the data format, see <a href="#section-036">2.6 Device IP Address Response</a>.</p>
+<p>When the camera is in STA mode (<code>wlan_state=0x01</code>), returns a valid IP address, and reports Wi-Fi information matching the phone's current network, use that IP address to establish the TCP connections. Use the SSID to check the target network and the BSSID when the specific access point must be identified. Even with a matching SSID, verify network reachability through an actual TCP connection.</p>
+<p>If no valid IP address is available, or the camera's Wi-Fi information does not match the phone's current Wi-Fi network, repeat Bluetooth network setup:</p>
+<ol>
+<li>Write to <code>AP_STA_UUID</code> using TAG 0x06 with VALUE structured as <code>app_set_dev_wifi_stamodeV2_t</code>. Fill in the target camera SN, the phone's current Wi-Fi SSID and password, and the required network parameters. Set <code>workstatus=0x01</code>, <code>distribution_network_sign=0</code>; for DHCP, set <code>ip_state=0</code>. Field definitions are provided in <a href="#section-025">2.3 STA Network Setup Command</a>.</li>
+<li>Wait for the device to switch networks, then read the IP characteristic again. Continue waiting while the network is switching (<code>wlan_state=0x03</code>) or the IP address is not ready. If an error or connection timeout occurs, check the network setup parameters.</li>
+<li>You can read <code>AP_STA_UUID</code> for a TAG 0x04 response confirming STA mode. Determine whether a usable IP address is available from the subsequent TAG 0x07 response. Verify the SN, IP address, and Wi-Fi information before establishing the TCP connections.</li>
+</ol>
+
+<h3 id="camera-tcp">5.3 Establishing TCP Control and Heartbeat Connections</h3>
+<p>After obtaining the camera IP address, the app should initiate and maintain two TCP connections to the same camera:</p>
+<div class="table-wrap"><table><thead><tr><th>Connection</th><th>Camera port</th><th>Purpose</th></tr></thead><tbody>
+<tr><td>Control connection</td><td>19017</td><td>Send control commands, including TAG 0x6a and TAG 0x14, and receive the corresponding status responses.</td></tr>
+<tr><td>Heartbeat connection</td><td>19015</td><td>Receive device TAG 0x16 heartbeats, normally once per second, to update device status.</td></tr>
+</tbody></table></div>
+<p>The app initiates both connections to the camera's listening ports. Send TAG 0x14 over the control connection on 19017; receive device heartbeats on 19015. Parse complete protocol frames from the TCP byte stream, handling coalesced and fragmented frames. Verify that heartbeats and status responses carry the target device SN. Heartbeat length may vary by firmware version but is fixed for a given version.</p>
+
+<h3 id="camera-encoding">5.4 Setting Encoding Parameters and Starting Encoding</h3>
+<ol>
+<li>Send TAG 0x6a over the control connection on 19017, with VALUE structured as <code>app_NetCodingParam_t</code>, specifying the target SN, preview resolution, codec, frame rate, and bitrate. <code>NetCodingTypeFormat</code> is 0 for H.264 and 1 for H.265; <code>videofps</code> carries the actual frame rate, 25 or 30; <code>CodingMaxRate</code> is in Mbps, and <code>CodingMinRate</code> is in Kbps; 0 disables dynamic bitrate. Set reserved fields to 0. For the complete definition, see <a href="#section-238">3.54 Network Encoding Parameters (TAG 0x6a)</a>.</li>
+<li>Next, send TAG 0x14 over the same control connection, with VALUE structured as <code>app_resp_heartbeat_t</code>. Fill in the target <code>product_sn</code> and set <code>pushstream=1</code> to request encoding and preview streaming. The field to set to 1 is <code>pushstream</code>. For the data format, see <a href="#section-062">3.5 App Heartbeat Reply (TAG 0x14)</a>.</li>
+<li>During preview, maintain both connections and reply with TAG 0x14 at the heartbeat interval, keeping <code>pushstream=1</code>. Receive heartbeats on 19015 and send replies on 19017.</li>
+</ol>
+
+<h3 id="camera-rtsp">5.5 RTSP Live Preview</h3>
+<p>After configuring and starting encoding, construct the RTSP URL using the camera IP address:</p>
+<p class="mono"><code>rtsp://&lt;camera-IP&gt;/ch1</code></p>
+<p>Use a player or decoder that supports the selected codec, establish an RTSP session, and select TCP transport for audio and video. RTSP uses a separate connection; keep the control connection on 19017 and heartbeat connection on 19015 active. If the IP address or Wi-Fi network changes during preview, read the network information again, reestablish the TCP connections, and resume using the sequence TAG 0x6a → TAG 0x14 (pushstream=1) → RTSP.</p>
+<h2 id="network-transmission">6 SRT and RTMP Network Transmission</h2>
+<p>This chapter provides quick access to SRT and RTMP configuration, readback, and status queries. Structure definitions, fields, and frame formats are linked to Chapter 3. Before using these interfaces, follow <a href="#camera-connection">Chapter 5</a> to establish the camera's network connection. Send all control commands over TCP 19017 and include the target camera SN.</p>
+
+<h3 id="network-command-index">6.1 Command Quick Reference</h3>
+<div class="table-wrap"><table><thead><tr><th>Function</th><th>Command</th><th>Data format</th><th>Chapter 3 reference</th></tr></thead><tbody>
+<tr><td>Configure / enable / disable SRT</td><td>TAG 0x69<br>EXT TAG 0x01</td><td><code>app_srt_t</code>; extended frame</td><td><a href="#section-232">3.53.1 Set SRT Parameters</a></td></tr>
+<tr><td>Read SRT configuration</td><td>TAG 0x69<br>EXT TAG 0x02</td><td>Request: <code>app_get_t</code>; response: <code>app_srt_t</code></td><td><a href="#section-235">3.53.2 Get SRT Parameters</a></td></tr>
+<tr><td>Configure / start / stop RTMP streaming</td><td>TAG 0x36</td><td><code>app_set_rtmp_ext_t</code>; standard frame with extended payload format</td><td><a href="#section-161">3.31 Configure RTMP Streaming</a></td></tr>
+<tr><td>Read RTMP configuration</td><td>TAG 0x37</td><td>Extended configurations are returned as <code>app_get_rtmp_ext_t</code> fragments</td><td><a href="#section-167">3.32 Get RTMP Streaming Information</a></td></tr>
+<tr><td>Query RTMP connection status</td><td>TAG 0x5c</td><td><code>app_set_rtmp_state_t</code> / <code>app_get_rtmp_state_t</code></td><td><a href="#section-191">3.43 RTMP Connection Status Query</a></td></tr>
+</tbody></table></div>
+<p>SRT uses the TAG 0x69 extended frame, with EXT TAG selecting the operation. RTMP's extended payload format still uses standard-frame TAG 0x36 and TAG 0x37, with VALUE containing the extended structure. These are different uses of the term extended; construct each frame according to its referenced section.</p>
+
+<h3 id="srt-network-transmission">6.2 SRT Configuration and Readback</h3>
+<p>Use <a href="#section-232">3.53.1</a> (TAG 0x69 / EXT TAG 0x01) to configure SRT, including <code>enable</code>, <code>mode</code>, port, latency, destination address, Stream ID, password, and AES encryption type. Listener and Caller share the same command and are selected by <code>mode</code>:</p>
+<div class="table-wrap"><table><thead><tr><th>Mode</th><th>Field value</th><th>Connection behavior</th></tr></thead><tbody>
+<tr><td>Listener</td><td><code>mode=0</code></td><td>The camera listens on the configured port and waits for the receiver to connect.</td></tr>
+<tr><td>Caller</td><td><code>mode=1</code></td><td>The camera initiates a connection to the configured destination address and port.</td></tr>
+</tbody></table></div>
+<ol>
+<li>Read the configuration: send <a href="#section-235">TAG 0x69 / EXT TAG 0x02</a> with only <code>product_sn[24]</code>; the device returns the complete SRT configuration.</li>
+<li>Start transmission: fill in the complete configuration, set <code>enable=1</code>, and send EXT TAG 0x01. <code>delay</code> is in ms, range 20 to 8000; fill in the other fields as defined in Chapter 3.</li>
+<li>Check the result: parse the setting response with the same EXT TAG 0x01. <code>set_state=0</code> indicates success; 1 indicates failure. Send EXT TAG 0x02 to read back the configuration if required.</li>
+<li>Stop transmission: retain the required configuration, set <code>enable=0</code>, and send EXT TAG 0x01 again.</li>
+</ol>
+<p>The setting response reports the parameter-setting result; the read command returns the configuration. Confirm an established SRT transmission connection using the receiver's connection and stream reception status. TAG 0x5c queries RTMP status.</p>
+
+<h3 id="rtmp-network-transmission">6.3 RTMP Streaming and Connection Status</h3>
+<p>Use <a href="#section-161">3.31</a> (TAG 0x36) and <code>app_set_rtmp_ext_t</code> to configure the streaming URL, authentication, streaming switch, and startup option. Each fragment has a VALUE length of 246 bytes. <code>enable=1</code> enables streaming; 0 disables it. <code>PowerOnPushEn=1</code> enables streaming at startup; 0 disables streaming at startup.</p>
+<ol>
+<li>Configure and start streaming: fill in the target SN, a valid streaming URL, and authentication information. Set <code>enable=1</code>, configure <code>PowerOnPushEn</code> as required, and send TAG 0x36.</li>
+<li>Send URL fragments: each fragment carries up to 128 URL bytes. Start with <code>url_offset=0</code> and increase the offset for subsequent fragments. Keep <code>url_size</code> and the control fields consistent throughout the configuration. Wait for the current fragment's setting response before sending the next fragment. The complete URL supports up to 511 content bytes. See <a href="#section-161">3.31</a>.</li>
+<li>Read the configuration: send <a href="#section-167">TAG 0x37</a> and use <code>url_size</code>, <code>url_offset</code> to reassemble the extended configuration URL and check the address, streaming switch, and startup option.</li>
+<li>Confirm the connection: send <a href="#section-191">TAG 0x5c</a> and read <code>ConnectState</code>; 2 indicates a successful connection. Interpret other values according to Section 3.43. The device does not push this status automatically; querying once per second is recommended.</li>
+<li>Stop streaming: send TAG 0x36 using the same extended payload format, set <code>enable=0</code>, and set the startup streaming option as required.</li>
+</ol>
+<p>A successful TAG 0x36 setting response and a successful RTMP server connection are separate steps. Use TAG 0x5c to check the server connection and TAG 0x37 to read the saved streaming configuration.</p>
+<a class="top-link" href="#top">Back to top</a></main></div><script>
+const tocFilter=document.getElementById('toc-filter');
+const toc=document.querySelector('nav');
+const tocGroups=[...toc.querySelectorAll('.toc-group')];
+let tocSavedState=null;
+function filterContents(){
+ const q=tocFilter.value.trim().toLowerCase();
+ if(q && tocSavedState===null)tocSavedState=tocGroups.map(g=>g.open);
+ toc.querySelectorAll(':scope > a').forEach(a=>a.hidden=!!q&&!a.textContent.toLowerCase().includes(q));
+ tocGroups.forEach((group,i)=>{
+  const title=group.querySelector('summary').textContent.toLowerCase();
+  const groupMatch=!!q&&title.includes(q);
+  let any=false;
+  group.querySelectorAll('a').forEach(a=>{
+   const match=!q||groupMatch||a.textContent.toLowerCase().includes(q);
+   a.hidden=!match;if(match)any=true;
+  });
+  group.hidden=!any;
+  if(q)group.open=any;
+  else if(tocSavedState!==null)group.open=tocSavedState[i];
+ });
+ if(!q)tocSavedState=null;
+}
+tocFilter.addEventListener('input',filterContents);
+function revealCurrentChapter(){
+ if(!location.hash)return;
+ const link=[...toc.querySelectorAll('a')].find(a=>a.getAttribute('href')===location.hash);
+ if(link){const group=link.closest('details');if(group)group.open=true;}
+}
+window.addEventListener('hashchange',revealCurrentChapter);
+revealCurrentChapter();
+</script></body></html>
